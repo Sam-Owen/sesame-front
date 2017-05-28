@@ -1,0 +1,70 @@
+[
+  {
+    "label": "父一",
+    "router": "",
+    "children": [
+      {
+        "label": "列表",
+        "router": "/list"
+      },
+      {
+        "label": "K线",
+        "router": "/kLine"
+      },
+      {
+        "label": "GRID测试",
+        "router": "/testgrid"
+      }
+    ]
+  },
+  {
+    "label": "上交所",
+    "router": "",
+    "children": [
+      {
+        "label": "上海A股（6XXXXX）",
+        "router": "/list"
+      },
+      {
+        "label": "其它",
+        "router": "/list"
+      }
+    ]
+  },
+  {
+    "label": "深交所",
+    "router": "",
+    "children": [
+      {
+        "label": "深圳A股（000XXX）",
+        "router": "/widget/stockList?prefix=000"
+      },
+      {
+        "label": "中小板（002XXX）",
+        "router": "/widget/stockList?prefix=002"
+      },
+      {
+        "label": "创业板（300XXX）",
+        "router": "/widget/stockList?prefix=300"
+      }
+    ]
+  },
+  {
+    "label": "期货",
+    "router": "",
+    "children": [
+      {
+        "label": "大商所",
+        "router": "/list"
+      },
+      {
+        "label": "郑商所",
+        "router": "/list"
+      },
+      {
+        "label": "创业板（300XXX）",
+        "router": "/list"
+      }
+    ]
+  }
+]

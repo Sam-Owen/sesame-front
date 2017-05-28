@@ -1,36 +1,39 @@
 <template>
-  <div class="row" id="app">
-    <div class="col-md-2">
-      <div class="panel-group table-responsive" role="tablist">
-        <div class="panel panel-primary leftMenu" v-for="m,i in menu">
-          <!-- 利用data-target指定要折叠的分组列表 -->
-          <div class="panel-heading" :id="'clgh' + i " data-toggle="collapse"
-               :data-target="'#'+'clg'+i" role="tab">
-            <h4 class="panel-title">
-              {{m.label}}
-              <span class="glyphicon glyphicon-chevron-up right"></span>
-            </h4>
-          </div>
-          <!-- .panel-collapse和.collapse标明折叠元素 .in表示要显示出来 -->
-          <div :id="'clg'+i" class="panel-collapse collapse in" role="tabpanel"
-               :aria-labelledby="'clgh'+i">
-            <ul class="list-group">
-              <li class="list-group-item" v-for="c,j in m.children">
-                <!-- 利用data-target指定URL -->
-
-                <button class="menu-item-left" data-target="test2.html">
+  <div>
+    <div style="background-color:black;height:50px;color:#fff">
+      <span style="font-size:30px;padding:20px 20px">点点芝麻，聚沙成塔</span>
+    </div>
+    <div class="row" id="app">
+      <div class="col-md-2">
+        <div class="panel-group table-responsive" role="tablist">
+          <div class="panel panel-primary leftMenu" v-for="m,i in menu">
+            <!-- 利用data-target指定要折叠的分组列表 -->
+            <div class="panel-heading" :id="'clgh' + i " data-toggle="collapse"
+                 :data-target="'#'+'clg'+i" role="tab">
+              <h4 class="panel-title">
+                {{m.label}}
+                <span class="glyphicon glyphicon-chevron-up right"></span>
+              </h4>
+            </div>
+            <!-- .panel-collapse和.collapse标明折叠元素 .in表示要显示出来 -->
+            <div :id="'clg'+i" class="panel-collapse collapse in" role="tabpanel"
+                 :aria-labelledby="'clgh'+i">
+              <ul class="list-group">
+                <li class="list-group-item" v-for="c,j in m.children">
+                  <!-- 利用data-target指定URL -->
                   <span class="glyphicon glyphicon-triangle-right"></span>
                   <router-link :to="c.router">{{c.label}}</router-link>
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div><!--panel end-->
+                </li>
+              </ul>
+            </div>
+          </div><!--panel end-->
+        </div>
       </div>
-    </div>
 
-    <div class="col-md-10">
-      <router-view></router-view>
+      <div class="col-md-10" id="content">
+        <router-view></router-view>
+      </div>
+
     </div>
   </div>
 </template>
@@ -38,6 +41,8 @@
 <script>
   import 'bootstrap/dist/css/bootstrap.min.css'
   import 'bootstrap/dist/css/bootstrap-theme.min.css'
+  import menu from '@/assets/data/menu.json'
+
 
   global.$ = global.jQuery = require('jquery');
   require('bootstrap');
@@ -50,40 +55,13 @@
     });
   });
 
-  global.menu = [
-    {
-      label: "父一",
-      router: "",
-      children: [
-        {
-          label: "列表",
-          router: "/list"
-        },
-        {
-          label: "父一子二",
-          router: "/list"
-        },
-      ]
-    }, {
-      label: "父二",
-      router: "",
-      children: [
-        {
-          label: "父二子一",
-          router: "/list"
-        },
-        {
-          label: "父二子一",
-          router: "/list"
-        },
-      ]
-    }];
+  global.menu = menu;
 
   export default {
     name: 'app',
     data () {
       return {
-        menu: menu
+        menu: global.menu
       }
     }
   }
@@ -127,6 +105,10 @@
   .leftMenu .menu-item-left:hover {
     background: #C4E3F3;
     border: 1px solid #1E90FF;
+  }
+
+  #content {
+    margin-top: 10px;
   }
 </style>
 

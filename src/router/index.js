@@ -14,15 +14,15 @@ for (let i = 0; i < global.menu.length; i++) {
   let m = global.menu[i];
   for (let j = 0; j < m.children.length; j++) {
     let c = m.children[j];
+    let path = c.router.split("?")[0];
     routes.push({
-      path: c.router,
+      path: path,
       name: c.label,
-      component: require('@/components' + c.router)
+      component: require('@/components' + path)
     });
   }
 }
 
-console.log(routes);
 export default new Router({
   routes: routes
 })
