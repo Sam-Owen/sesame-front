@@ -1,20 +1,21 @@
 <template>
   <div id="list">
-    <table class="table">
+    <table class="table table-striped">
       <thead>
       <tr>
-        <td class="active">编号</td>
-        <td class="active">编码</td>
-        <td class="active">名称</td>
-
+        <th>编号</th>
+        <th>编码</th>
+        <th>名称</th>
       </tr>
       </thead>
 
       <tbody>
       <tr v-for="(s,i) in stock">
-        <td class="active">{{ i+1 }}</td>
-        <td class="active"><router-link :to="'/kLine?code='+s.code">{{ s.code }}</router-link></td>
-        <td class="active">{{ s.name }}</td>
+        <td>{{ i+1 }}</td>
+        <td>
+          <router-link :to="'/kLine?code='+s.code">{{ s.code }}</router-link>
+        </td>
+        <td>{{ s.name }}</td>
       </tr>
       </tbody>
     </table>

@@ -1,3 +1,6 @@
+import constant from '@/assets/data/constant.js'
+
+global.constant = constant;
 var util = (new function () {
     // 递规取 前、后X天的值（不包含当天）
     this.rollDayWithoutToday = function (e, day, processFun) {
