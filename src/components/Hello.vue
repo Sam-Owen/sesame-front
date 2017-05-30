@@ -25,7 +25,7 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: '欢迎来到芝麻之家，这是一个量化研究的工程。点点芝麻，聚沙成塔！'
     }
   }
 }

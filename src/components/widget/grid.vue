@@ -18,7 +18,7 @@
       <tr v-for="(s,i) in stock">
         <td>{{ i+1 }}</td>
         <td>
-          <router-link :to="'/kLine?code='+s.code">{{ s.code }}</router-link>
+          <router-link :to="'/widget/kLine?code='+s.code">{{ s.code }}</router-link>
         </td>
         <td>{{ s.name }}</td>
         <td class="">{{ s.nearly }}</td>

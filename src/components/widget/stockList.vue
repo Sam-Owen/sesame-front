@@ -9,13 +9,8 @@
 
 
 <script>
-  import data from '@/components/sz-stock.json'
+  import data from '@/assets/data/sz-stock.json'
   import grid from '@/components/widget/grid'
-
-  import kdj from '@/assets/data/kdj.js'
-  import macd from '@/assets/data/macd.js'
-  import ma from '@/assets/data/ma.js'
-  import util from '@/assets/data/util.js'
 
   let stock = [];
 
@@ -24,7 +19,7 @@
     let reg = new RegExp("^" + prefix);
     for (let i = 0; i < data.length; i++) {
       if (data[i].code.match(reg)) {
-          //vuejs数据双向绑定监控不了新增属性和引用的改变
+        //vuejs数据双向绑定监控不了新增属性和引用的改变
         data[i].nearly = "";
         data[i].max = "";
         data[i].min = "";

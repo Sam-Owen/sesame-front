@@ -5,15 +5,11 @@
     "children": [
       {
         "label": "列表",
-        "router": "/list"
+        "router": "/widget/stockList"
       },
       {
         "label": "K线",
-        "router": "/kLine"
-      },
-      {
-        "label": "GRID测试",
-        "router": "/testgrid"
+        "router": "/widget/kLine"
       }
     ]
   },
@@ -23,11 +19,11 @@
     "children": [
       {
         "label": "上海A股（6XXXXX）",
-        "router": "/list"
+        "router": "/widget/stockList"
       },
       {
         "label": "其它",
-        "router": "/list"
+        "router": "/widget/stockList"
       }
     ]
   },
@@ -55,15 +51,15 @@
     "children": [
       {
         "label": "大商所",
-        "router": "/list"
+        "router": "/widget/stockList"
       },
       {
         "label": "郑商所",
-        "router": "/list"
+        "router": "/widget/stockList"
       },
       {
         "label": "创业板（300XXX）",
-        "router": "/list"
+        "router": "/widget/stockList"
       }
     ]
   }

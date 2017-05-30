@@ -43,7 +43,6 @@
   import 'bootstrap/dist/css/bootstrap-theme.min.css'
   import menu from '@/assets/data/menu.json'
 
-
   global.$ = global.jQuery = require('jquery');
   require('bootstrap');
 

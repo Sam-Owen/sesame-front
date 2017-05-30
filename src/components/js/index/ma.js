@@ -1,5 +1,5 @@
-import constant from '@/assets/data/constant.js'
-import util from '@/assets/data/util.js'
+import constant from '@/components/js/common/constant'
+import util from '@/components/js/common/util'
 
 // 均线
 var ma = (new function () {

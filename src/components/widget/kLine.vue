@@ -7,14 +7,12 @@
 </template>
 
 <script>
-
-  import main from '@/components/js/struts/main.js'
+  import constant from '@/components/js/common/constant';
+  import service from '@/components/js/common/service';
 
   var echarts = require('echarts')
 
-
   var jsonArr = [];
-
 
   //构建K线数据
   function buildk() {
@@ -103,7 +101,6 @@
     // 使用
     // 基于准备好的dom，初始化echarts图表
     var k1 = echarts.init(document.getElementById('k1'));
-    console.log(k1);
 
     k1.setOption({
       backgroundColor: '#eee',
@@ -422,8 +419,8 @@
 
   export default {
     mounted(){
-      main.init(this.$route.query.code).done(function () {
-        jsonArr = main.data;
+      service.getLocalStock(this.$route.query.code).done(function (data) {
+        jsonArr = data;
       }).done(build);
     }
   }
