@@ -14,7 +14,7 @@ var main = (new function () {
     this.getData = function (code) {
         //sina接跨域方式
         //XPT,NID,CAD
-        return $.ajax({url: "http://127.0.0.1:3000/getLocalStockData?symbol=sz"+code+"&type=after"}).done(function (r) {
+        return $.ajax({url: "http://127.0.0.1:3000/getLocalStockData?symbol=sz"+code+"&type=after&update=true"}).done(function (r) {
             /**
             var xml = $(r);
             var nodes = xml.find("content");

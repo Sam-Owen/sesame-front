@@ -6,6 +6,11 @@
         <th>编号</th>
         <th>编码</th>
         <th>名称</th>
+        <th class="">最近买点</th>
+        <th class="">最大涨幅</th>
+        <th class="">最大跌幅</th>
+        <th class="">平均最大涨幅</th>
+        <th class="">平均最大跌幅</th>
       </tr>
       </thead>
 
@@ -16,6 +21,9 @@
           <router-link :to="'/kLine?code='+s.code">{{ s.code }}</router-link>
         </td>
         <td>{{ s.name }}</td>
+        <td class="">{{ s.nearly }}</td>
+        <td class="">{{ s.max }}</td>
+        <td class="">{{ s.min }}</td>
       </tr>
       </tbody>
     </table>
