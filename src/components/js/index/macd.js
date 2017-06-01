@@ -62,14 +62,6 @@ var macd = (new function () {
     this.setBAR = function (e) {
         e[bar] = 2 * (e[dif] - e[dea]).toFixed(constant.FIX_NUM);
     }
-
-
-    this.dWay = function (data) {
-    };
-
-    // kdj.j每次突破新高的后续涨幅
-    this.jWay = function (data) {
-    };
 });
 
 export default macd

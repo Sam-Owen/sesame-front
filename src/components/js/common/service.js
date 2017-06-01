@@ -6,10 +6,11 @@ import macd from '@/components/js/index/macd'
 /**
  * 获取中国股票数据
  * @param code
+ * @param update
  * @returns {*}
  */
-function getLocalStock(code) {
-  let url = "http://127.0.0.1:3000/getLocalStockData?symbol=sz" + code + "&type=after&update=false";
+function getLocalStock(code, update) {
+  let url = "http://127.0.0.1:3000/getLocalStockData?symbol=sz" + code + "&type=after&update=" + update;
   return $.ajax({url: url}).done(function (data) {
     init(data);
   });

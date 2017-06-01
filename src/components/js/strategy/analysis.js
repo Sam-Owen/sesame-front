@@ -1,4 +1,8 @@
-//策略分析 strategry.call(analysis);
+/**
+ * 最初是一个想法
+ * 通过分析验证这个想法
+ * 验证通过后形成策略
+ */
 var analysis = function(){
 	//console.log("后续" + j + "天涨幅为：" + util.getAmp(e, nextN) + "%");
 

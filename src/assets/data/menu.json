@@ -1,15 +1,15 @@
 [
   {
-    "label": "父一",
+    "label": "自选股",
     "router": "",
     "children": [
       {
-        "label": "列表",
+        "label": "深圳交易所",
         "router": "/widget/stockList"
       },
       {
-        "label": "K线",
-        "router": "/widget/kLine"
+        "label": "上海交易所",
+        "router": "/widget/stockList"
       }
     ]
   },
@@ -60,6 +60,24 @@
       {
         "label": "创业板（300XXX）",
         "router": "/widget/stockList"
+      }
+    ]
+  },
+  {
+    "label": "功能菜单",
+    "router": "",
+    "children": [
+      {
+        "label": "列表",
+        "router": "/widget/stockList"
+      },
+      {
+        "label": "K线",
+        "router": "/widget/kLine"
+      },
+      {
+        "label": "详情",
+        "router": "/widget/analysisList"
       }
     ]
   }
