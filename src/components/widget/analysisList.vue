@@ -9,21 +9,24 @@
         <th class="">止盈天数</th>
         <th class="">等待亏损率</th>
         <th class="">最大亏损率</th>
-        <th class="">最大回撤率</th>
         <th class="">均线密度</th>
+        <th class="">时间盈利比</th>
+        <th class="">最大回撤率</th>
       </tr>
       </thead>
 
       <tbody>
-      <tr v-for="(b,i) in buys">
-        <td>{{ i+1 }}</td>
+      <tr v-for="(b,i) in buys" :class="b.maxRetracement < 0 ? 'danger' : 'success'">
+        <td v-if="i+1===buys.length">合计</td>
+        <td v-else="i+1===buys.length">{{ i+1 }}</td>
         <td>{{ b.buy }}</td>
         <td>{{ b.maxProfit }}</td>
         <td class="">{{ b.maxProfitDays }}</td>
         <td class="">{{ b.wait }}</td>
         <td class="">{{ b.maxLosses }}</td>
-        <td class="">{{ b.maxRetracement }}</td>
         <td class="">{{ b.maDensity }}</td>
+        <td class="">{{ b.timeToProfit }}</td>
+        <td class="">{{ b.maxRetracement }}</td>
       </tr>
       </tbody>
     </table>
@@ -39,7 +42,7 @@
     name: 'analysisList',
     data () {
       return {
-        buys:[]
+        buys: []
       }
     },
     created(){

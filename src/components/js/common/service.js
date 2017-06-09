@@ -67,6 +67,7 @@ function init(data) {
   if (head.indexOf(constant.MACD_BAR) === -1) {
     macd.init(data);
   }
+  global.testData = data;
 }
 
 export default {

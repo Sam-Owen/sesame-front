@@ -10,6 +10,7 @@ import constant from '@/components/js/common/constant'
 import util from '@/components/js/common/util'
 
 function execute(data, ma) {
+
   let buys = [], r = [], maCycle = constant.MA + ma;
 
   for (let i = 0, l = data.length; i < l; i++) {
@@ -31,22 +32,42 @@ function execute(data, ma) {
         buy: e.time,
         //最大盈利率
         maxProfit: "",
-        //等待亏损率，盈利之前的亏损率
+        //等待亏损率，最大盈利之前的亏损率
         wait: "",
-        //最大亏损率，盈利之前的亏损率
+        //最大亏损率，最大盈利之前的亏损率
         maxLosses: "",
-        //最大回撤率，盈利以后的回撤率
+        //最大回撤率，最大盈利以后的亏损率
         maxRetracement: "",
         //均线密度
         maDensity: util.array.standardDeviation(mas),
         //达到最大盈利率所需要的天数
-        maxProfitDays : ""
+        maxProfitDays: "",
+        //调整时间和涨幅的比例
+        timeToProfit: ""
       };
+
+      //标记
+      e.analysis_ma250 = true;
 
       //每天的涨跌幅度计数
       let amps = [0];
 
-      for (let j = 1; j <= ma; j++) {
+      //调整时间
+      let adjustmentDays = getDays(e, maCycle);
+
+      let isContinue = util.rollDay(e.pre, -adjustmentDays, function (e, lastReturn) {
+        // 递规结束条件，如果递归返回值是布尔值，需要使用undefined。建议统一使用undefined
+        if (lastReturn === undefined) {
+          return !e.analysis_ma250;
+        }
+        return !e.analysis_ma250 && lastReturn;
+      });
+
+      if (!isContinue) {
+        continue;
+      }
+
+      for (let j = 1; j <= (adjustmentDays < ma ? ma : adjustmentDays); j++) {
         let nextN = util.getDayByDay(e, j);
         amps.push(+util.getAmp(e, nextN));
       }
@@ -55,6 +76,8 @@ function execute(data, ma) {
       buy.maxProfit = temp.sort(function (a, b) {
         return b - a;//倒序
       })[0];
+
+      buy.timeToProfit = (adjustmentDays / buy.maxProfit).toFixed(2) + " / " + adjustmentDays;
 
       buy.maxLosses = temp.slice(-1)[0];
 
@@ -65,10 +88,25 @@ function execute(data, ma) {
         return a - b;//顺序
       })[0];
 
+      let retracementPeriod = amps.slice(buy.maxProfitDays);
+      buy.maxRetracement = retracementPeriod.sort(function (a, b) {
+        return a - b;//顺序
+      })[0];
+
       buys.push(buy);
     }
   }
+  return buys;
   return filter(buys);
+}
+
+// 从当天开始往前取年线连续下跌的持续时间
+function getDays(e, maCycle) {
+  if (e[maCycle] > e.pre[maCycle]) {
+    return 0;
+  } else {
+    return 1 + getDays(e.pre, maCycle);
+  }
 }
 
 function filter(buys) {
@@ -91,6 +129,51 @@ function filter(buys) {
   return result;
 }
 
+//合计
+function total(buys) {
+  for (let i = 0, l = buys.length; i < l; i++) {
+    //let buy = buys[i];
+
+    let buy = {
+      //买点
+      buy: e.time,
+      //最大盈利率
+      maxProfit: "",
+      //等待亏损率，盈利之前的亏损率
+      wait: "",
+      //最大亏损率，盈利之前的亏损率
+      maxLosses: "",
+      //最大回撤率，盈利以后的回撤率
+      maxRetracement: "",
+      //均线密度
+      maDensity: util.array.standardDeviation(mas),
+      //达到最大盈利率所需要的天数
+      maxProfitDays: "",
+      //调整时间和涨幅的比例
+      timeToProfit: ""
+    };
+  }
+}
+
+let strategy = {
+  sl: -30,
+  tp: 500,
+  stopDate: 250,
+  buy: function (e) {
+    let maCycle = constant.MA + 250;
+    if (e[constant.BASE_ATTR_CLOSE] >= e[maCycle]
+      && e.pre[constant.BASE_ATTR_CLOSE] < e.pre[maCycle] /*突破年线*/
+      && e[maCycle] <= e.pre[maCycle] /*年线还处于下行趋势*/
+      //&& e[constant.MA + 500] <= e.pre[constant.MA + 500] /*2年线还处于下行趋势*/
+      && e[maCycle] >= e[constant.MA + 5]
+      && e[maCycle] >= e[constant.MA + 10]
+      && e[maCycle] >= e[constant.MA + 20]
+      && e[maCycle] >= e[constant.MA + 60]
+      && e[maCycle] >= e[constant.MA + 120] /*年线压制其它均线*/) {/*再加个一阳穿三线？*/
+      return true;
+    }
+  }
+}
 export default {
-  execute
+  execute, strategy
 }

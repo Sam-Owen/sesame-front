@@ -78,6 +78,10 @@
       {
         "label": "详情",
         "router": "/widget/analysisList"
+      },
+      {
+        "label": "复盘",
+        "router": "/widget/replayList"
       }
     ]
   }

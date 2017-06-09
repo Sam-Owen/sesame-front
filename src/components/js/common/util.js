@@ -1,6 +1,20 @@
 import constant from '@/components/js/common/constant'
 
-var util = (new function () {
+global.util = (new function () {
+  // 递规取 前、后X天的值（可选参数withToday可定义是否包含当天，默认包含）
+  this.rollDay = function (e, day, processFun, withToday) {
+    if (withToday === undefined) {
+      withToday = true;
+    }
+
+    if (day > 0 && !!withToday) {
+      day--;
+    } else if (day < 0 && !!withToday) {
+      day++;
+    }
+    return this.rollDayWithoutToday(e, day, processFun);
+  };
+
   // 递规取 前、后X天的值（不包含当天）
   this.rollDayWithoutToday = function (e, day, processFun) {
     var lastReturn;
@@ -15,20 +29,6 @@ var util = (new function () {
     } else {
       return processFun(e);
     }
-  };
-
-  // 递规取 前、后X天的值（可选参数withToday可定义是否包含当天，默认包含）
-  this.rollDay = function (e, day, processFun, withToday) {
-    if (withToday === undefined) {
-      withToday = true;
-    }
-
-    if (day > 0 && !!withToday) {
-      day--;
-    } else if (day < 0 && !!withToday) {
-      day++;
-    }
-    return this.rollDayWithoutToday(e, day, processFun);
   };
 
   // 取几天内最低值（包含当天）
@@ -66,7 +66,16 @@ var util = (new function () {
 
   // 取两天的涨幅，以day1为参照
   this.getAmp = function (day1, day2) {
-    return ((day2[constant.BASE_ATTR_CLOSE] - day1[constant.BASE_ATTR_CLOSE]) / day1[constant.BASE_ATTR_CLOSE] * 100).toFixed(2);
+    return +((day2[constant.BASE_ATTR_CLOSE] - day1[constant.BASE_ATTR_CLOSE]) / day1[constant.BASE_ATTR_CLOSE] * 100).toFixed(2);
+  };
+
+  // 取两天的间隔交易天数，day1 > day2
+  this.getDays = function (day1, day2) {
+    if (day1 === day2) {
+      return 0;
+    } else {
+      return 1 + this.getDays(day1.next, day2);
+    }
   };
 
 }());
@@ -96,12 +105,16 @@ util.array = {
     return (this.sum(arr) / arr.length).toFixed(2);
   },
   // 几何平均数
-  geometricMean : function(arr){
+  geometricMean: function (arr) {
     let sum = 1;
     for (let i = 0; i < arr.length; i++) {
       sum *= +arr[i];
     }
-    return Math.pow(sum, 1/arr.length);
+    return Math.pow(sum, 1 / arr.length);
+  },
+  //通用
+  commonGM :function(){
+
   }
 }
 

@@ -19,10 +19,12 @@
         <td>
           <router-link :to="'/widget/kLine?code='+s.code">{{ s.code }}</router-link>
         </td>
-        <td>{{ s.name }}</td>
+        <td>
+          <router-link :to="'/widget/analysisList?symbol='+s.code">{{ s.name }}</router-link>
+        </td>
         <td class="">{{ s.nearly }}</td>
         <td class="">
-          <router-link :to="'/widget/analysisList?symbol='+s.code">Click Me</router-link>
+          <router-link :to="'/widget/replayList?symbol='+s.code">Click Me</router-link>
         </td>
         <td class="">{{ s.max }}</td>
         <td class="">{{ s.min }}</td>
