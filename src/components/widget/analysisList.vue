@@ -16,7 +16,7 @@
       </thead>
 
       <tbody>
-      <tr v-for="(b,i) in buys" :class="b.maxRetracement < 0 ? 'danger' : 'success'">
+      <tr v-for="(b,i) in buys" :class="b.maxRetracement > 0 ? 'danger' : 'success'">
         <td v-if="i+1===buys.length">合计</td>
         <td v-else="i+1===buys.length">{{ i+1 }}</td>
         <td>{{ b.buy }}</td>

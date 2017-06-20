@@ -13,7 +13,8 @@
 
 
 <script>
-  import data from '@/assets/data/sz-stock.json'
+  import sz from '@/assets/data/sz-stock.json'
+  import sh from '@/assets/data/sh-stock.json'
 
   import service from '@/components/js/common/service'
   import ma250 from '@/components/js/analysis/ma250'
@@ -21,20 +22,26 @@
   import grid from '@/components/widget/grid'
 
   let stock = [];
+  let data = sz.concat(sh);
+  for (let i = 0; i < data.length; i++) {
+    let e = data[i];
+    e.code = e.exchange + e.code;
+  }
 
   function getData(prefix) {
     stock.length = 0;
     let reg = new RegExp("^" + prefix);
     for (let i = 0; i < data.length; i++) {
-      if (data[i].code.match(reg)) {
+      let e = data[i];
+      if (e.code.match(reg)) {
         //vuejs数据双向绑定监控不了新增属性和引用的改变
         //data[i].nearly = "";
         //data[i].max = "";
         //data[i].min = "";
-        stock.push(data[i]);
+        stock.push(e);
       }
     }
-    stock.length = 1;
+//    stock.length = 1;
   }
 
   export default {

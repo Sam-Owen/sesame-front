@@ -9,13 +9,14 @@
 import constant from '@/components/js/common/constant'
 import util from '@/components/js/common/util'
 
-function execute(data, ma) {
 
-  let buys = [], r = [], maCycle = constant.MA + ma;
+let strategy = {
+  sl: -10,
+  tp: 59,
+  stopDate: 63,
+  buy: function (e) {
+    let maCycle = constant.MA + 250;
 
-  for (let i = 0, l = data.length; i < l; i++) {
-    let e = data[i];
-    // e.time = new Date(e.time).toLocaleDateString();
     if (e[constant.BASE_ATTR_CLOSE] >= e[maCycle]
       && e.pre[constant.BASE_ATTR_CLOSE] < e.pre[maCycle] /*突破年线*/
       && e[maCycle] <= e.pre[maCycle] /*年线还处于下行趋势*/
@@ -24,8 +25,39 @@ function execute(data, ma) {
       && e[maCycle] >= e[constant.MA + 10]
       && e[maCycle] >= e[constant.MA + 20]
       && e[maCycle] >= e[constant.MA + 60]
-      && e[maCycle] >= e[constant.MA + 120] /*年线压制其它均线*/) {/*再加个一阳穿三线？*/
+      && e[maCycle] >= e[constant.MA + 120] /*年线压制其它均线*/
+    ) {/*再加个一阳穿三线？*/
 
+      //标记
+      e.mark = {
+        analysis: 'ma250'
+      };
+
+      //调整时间
+      let adjustmentDays = getDays(e, maCycle);
+
+      let isBuy = util.rollDay(e.pre, -adjustmentDays, function (e, lastReturn) {
+        // 递规结束条件，如果递归返回值是布尔值，需要使用undefined。建议统一使用undefined
+        if (lastReturn === undefined) {
+          return !(e.mark && e.mark.analysis === 'ma250');
+        }
+        return !(e.mark && e.mark.analysis === 'ma250') && lastReturn;
+      });
+
+      return isBuy;
+    }
+  }
+};
+
+
+function execute(data, ma) {
+
+  let buys = [], r = [], maCycle = constant.MA + ma;
+
+  for (let i = 0, l = data.length; i < l; i++) {
+    let e = data[i];
+    // e.time = new Date(e.time).toLocaleDateString();
+    if (strategy.buy(e)) {/*再加个一阳穿三线？*/
       let mas = [e[constant.MA + 5], e[constant.MA + 10], e[constant.MA + 20], e[constant.MA + 60], e[constant.MA + 120]];
       let buy = {
         //买点
@@ -46,26 +78,12 @@ function execute(data, ma) {
         timeToProfit: ""
       };
 
-      //标记
-      e.analysis_ma250 = true;
 
       //每天的涨跌幅度计数
       let amps = [0];
 
       //调整时间
       let adjustmentDays = getDays(e, maCycle);
-
-      let isContinue = util.rollDay(e.pre, -adjustmentDays, function (e, lastReturn) {
-        // 递规结束条件，如果递归返回值是布尔值，需要使用undefined。建议统一使用undefined
-        if (lastReturn === undefined) {
-          return !e.analysis_ma250;
-        }
-        return !e.analysis_ma250 && lastReturn;
-      });
-
-      if (!isContinue) {
-        continue;
-      }
 
       for (let j = 1; j <= (adjustmentDays < ma ? ma : adjustmentDays); j++) {
         let nextN = util.getDayByDay(e, j);
@@ -102,7 +120,7 @@ function execute(data, ma) {
 
 // 从当天开始往前取年线连续下跌的持续时间
 function getDays(e, maCycle) {
-  if (e[maCycle] > e.pre[maCycle]) {
+  if (!e || !e.pre || (e[maCycle] > e.pre[maCycle])) {
     return 0;
   } else {
     return 1 + getDays(e.pre, maCycle);
@@ -155,25 +173,6 @@ function total(buys) {
   }
 }
 
-let strategy = {
-  sl: -30,
-  tp: 500,
-  stopDate: 250,
-  buy: function (e) {
-    let maCycle = constant.MA + 250;
-    if (e[constant.BASE_ATTR_CLOSE] >= e[maCycle]
-      && e.pre[constant.BASE_ATTR_CLOSE] < e.pre[maCycle] /*突破年线*/
-      && e[maCycle] <= e.pre[maCycle] /*年线还处于下行趋势*/
-      //&& e[constant.MA + 500] <= e.pre[constant.MA + 500] /*2年线还处于下行趋势*/
-      && e[maCycle] >= e[constant.MA + 5]
-      && e[maCycle] >= e[constant.MA + 10]
-      && e[maCycle] >= e[constant.MA + 20]
-      && e[maCycle] >= e[constant.MA + 60]
-      && e[maCycle] >= e[constant.MA + 120] /*年线压制其它均线*/) {/*再加个一阳穿三线？*/
-      return true;
-    }
-  }
-}
 export default {
   execute, strategy
 }

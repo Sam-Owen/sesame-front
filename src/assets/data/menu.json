@@ -18,12 +18,8 @@
     "router": "",
     "children": [
       {
-        "label": "上海A股（6XXXXX）",
-        "router": "/widget/stockList"
-      },
-      {
-        "label": "其它",
-        "router": "/widget/stockList"
+        "label": "上海主板（6XXXXX）",
+        "router": "/widget/stockList?prefix=sh6"
       }
     ]
   },
@@ -32,16 +28,16 @@
     "router": "",
     "children": [
       {
-        "label": "深圳A股（000XXX）",
-        "router": "/widget/stockList?prefix=000"
+        "label": "深圳主板（000XXX）",
+        "router": "/widget/stockList?prefix=sz00"
       },
       {
         "label": "中小板（002XXX）",
-        "router": "/widget/stockList?prefix=002"
+        "router": "/widget/stockList?prefix=sz002"
       },
       {
         "label": "创业板（300XXX）",
-        "router": "/widget/stockList?prefix=300"
+        "router": "/widget/stockList?prefix=sz300"
       }
     ]
   },

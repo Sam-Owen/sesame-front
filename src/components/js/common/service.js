@@ -10,7 +10,7 @@ import macd from '@/components/js/index/macd'
  * @returns {*}
  */
 function getLocalStock(code, update) {
-  let url = "http://127.0.0.1:3000/getLocalStockData?symbol=sz" + code + "&type=after&update=" + update;
+  let url = "http://127.0.0.1:3000/getLocalStockData?symbol=" + code + "&type=after&update=" + update;
   return $.ajax({url: url}).done(function (data) {
     init(data);
   });
