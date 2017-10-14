@@ -57,7 +57,7 @@ function execute(data, ma) {
   for (let i = 0, l = data.length; i < l; i++) {
     let e = data[i];
     // e.time = new Date(e.time).toLocaleDateString();
-    if (strategy.buy(e)) {/*再加个一阳穿三线？*/
+    if (strategy.buy(e)) {
       let mas = [e[constant.MA + 5], e[constant.MA + 10], e[constant.MA + 20], e[constant.MA + 60], e[constant.MA + 120]];
       let buy = {
         //买点

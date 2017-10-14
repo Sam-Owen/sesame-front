@@ -19,7 +19,7 @@
     "children": [
       {
         "label": "上海主板（6XXXXX）",
-        "router": "/widget/stockList?prefix=sh6"
+        "router": "/widget/stockList?exchange=sh6"
       }
     ]
   },
@@ -29,15 +29,15 @@
     "children": [
       {
         "label": "深圳主板（000XXX）",
-        "router": "/widget/stockList?prefix=sz00"
+        "router": "/widget/stockList?exchange=sz00"
       },
       {
         "label": "中小板（002XXX）",
-        "router": "/widget/stockList?prefix=sz002"
+        "router": "/widget/stockList?exchange=sz002"
       },
       {
         "label": "创业板（300XXX）",
-        "router": "/widget/stockList?prefix=sz300"
+        "router": "/widget/stockList?exchange=sz300"
       }
     ]
   },
