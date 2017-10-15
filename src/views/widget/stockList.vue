@@ -13,7 +13,7 @@
 <script>
 
 import ma250 from '@/components/js/analysis/ma250'
-import grid from '@/components/widget/grid'
+import grid from '@/views/widget/grid'
 
 export default {
     name: 'stockList',

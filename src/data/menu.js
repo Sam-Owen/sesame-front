@@ -22,7 +22,7 @@ export default [
         path: '/',
         iconCls: 'fa fa-bar-chart',
         children: [
-            { path: '/widget/stockList', name: '深圳交易所' }
+            { path: '/views/widget/stockList', name: '深圳交易所' }
         ]
     },
     {
@@ -33,19 +33,19 @@ export default [
         "children": [
             {
                 name: "上海主板（6XXXXX）",
-                path: "/widget/stockList?exchange=上海主板"
+                path: "/views/widget/stockList?exchange=上海主板"
             },
             {
                 name: "深圳主板（000XXX）",
-                path: "/widget/stockList?exchange=深圳主板"
+                path: "/views/widget/stockList?exchange=深圳主板"
             },
             {
                 name: "中小板（002XXX）",
-                path: "/widget/stockList?exchange=中小板"
+                path: "/views/widget/stockList?exchange=中小板"
             },
             {
                 name: "创业板（300XXX）",
-                path: "/widget/stockList?exchange=创业板"
+                path: "/views/widget/stockList?exchange=创业板"
             }
         ]
     },
@@ -57,19 +57,19 @@ export default [
         "children": [ 
             {
                 name: "中金所",
-                path: "/widget/stockList?exchange=中金所"
+                path: "/views/widget/stockList?exchange=中金所"
             },
             {
                 name: "大商所",
-                path: "/widget/stockList?exchange=大连商品交易所"
+                path: "/views/widget/stockList?exchange=大连商品交易所"
             },
             {
                 name: "郑商所",
-                path: "/widget/stockList?exchange=郑州商品交易所"
+                path: "/views/widget/stockList?exchange=郑州商品交易所"
             },
             {
                 name: "上期所",
-                path: "/widget/stockList?exchange=上海期货交易所"
+                path: "/views/widget/stockList?exchange=上海期货交易所"
             }
         ]
     },
@@ -81,19 +81,19 @@ export default [
         "children": [
             {
                 name: "列表",
-                path: "/widget/stockList"
+                path: "/views/widget/stockList"
             },
             {
                 name: "K线",
-                path: "/widget/kLine"
+                path: "/views/widget/kLine"
             },
             {
                 name: "详情",
-                path: "/widget/analysisList"
+                path: "/views/widget/analysisList"
             },
             {
                 name: "复盘",
-                path: "/widget/replayList"
+                path: "/views/widget/replayList"
             }
         ]
     }
