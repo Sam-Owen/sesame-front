@@ -1,15 +1,10 @@
 <template>
     <div>
-        <button class="btn btn-default" type="button" data-loading-text="Loading..." v-on:click="analysis($event, false)">分析
-        </button>
-        <button class="btn btn-default" type="button" data-loading-text="Loading..." v-on:click="analysis($event, true)">更新并分析
-        </button>
-
-        <grid id="stockList" :stock="stock"></grid>
+        <el-button type="primary" @click="analysis(false)">仅分析</el-button>
+        <el-button type="primary" @click="analysis(true)">更新并分析</el-button>
+        <grid id="stockList " :stock="stock"></grid>
     </div>
 </template>
-
-
 <script>
 
 import ma250 from '@/components/js/analysis/ma250'
@@ -17,24 +12,23 @@ import grid from '@/views/widget/grid'
 
 export default {
     name: 'stockList',
-    // data() {
-    //     return {
-    //         stock: this.$store.state.stockList
-    //     }
-    // },
     created() {
-        this.$store.dispatch('getStockList', this.$route.query.exchange);
+        this.$store.dispatch('getStockList', this.$route.query.board);
     },
     computed: {
-        stock () {
+        stock() {
+            console.log(this.$store.state.stockList)
             return this.$store.state.stockList
         }
     },
     methods: {
-        analysis: function(event, update) {
+        analysis: function(update) {
             let count = 0, stock = this.stock;
             for (let i = 0; i < stock.length; i++) {
-                this.$store.dispatch('getStockData', stock[i].code, update).then(() => {
+                this.$store.dispatch('getStockData', {
+                    symbol: stock[i].code,
+                    update: update
+                }).then(() => {
                     let ar = ma250.execute(this.$store.state.stockData, 250);
                     if (ar.length > 0) {
                         stock[i].max = ar.slice(-1)[0].maxProfit;
@@ -56,7 +50,7 @@ export default {
     },
     watch: {
         $route(to, from) {
-            this.$store.dispatch('getStockList', this.$route.query.exchange);
+            this.$store.dispatch('getStockList', this.$route.query.board);
         },
     },
     components: {
@@ -72,6 +66,6 @@ export default {
 }
 
 button {
-    margin-right: 20px;
+    margin: 20px;
 }
 </style>

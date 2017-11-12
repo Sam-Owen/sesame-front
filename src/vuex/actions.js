@@ -5,29 +5,34 @@ import kdj from '@/components/js/index/kdj'
 import ma from '@/components/js/index/ma'
 import macd from '@/components/js/index/macd'
 
-import { getLocalStock, getLocalFutrues } from '@/common/service'
+import {
+    stockList,
+    getLocalFutrues
+} from '@/common/service'
 
 import sz from '@/assets/data/sz-stock.json'
 import sh from '@/assets/data/sh-stock.json'
 import lf from '@/assets/data/local-futures.json'
 
-//test
-export const increment = ({ commit }) => {
-    commit('INCREMENT')
+export const getStockList = ({
+    commit
+}, board) => {
+    return stockList({
+        board: board
+    }).then(function (result) {
+        commit('GET_STOCK_LIST', result.data);
+    });
 }
-export const decrement = ({ commit }) => {
-    commit('DECREMENT')
-}
-
-export const getStockData = ({ commit }, code, update) => {
-
-    var para = {
-        symbol: code,
-        type: 'after',
-        update
+/**
+export const getStockData = ({
+    commit
+}, para) => {
+    if (typeof para === 'string') {
+        para = {
+            symbol: para
+        }
     }
-
-    if (code.match(/^sz|^sh/ig)) {
+    if (para.symbol.match(/^sz|^sh/ig)) {
         return getLocalStock(para).then(function (result) {
             init(result.data);
             commit('GET_STOCK_DATA', result.data);
@@ -43,9 +48,12 @@ export const getStockData = ({ commit }, code, update) => {
 }
 
 let data = sz.concat(sh).concat(lf);
-export const getStockList = ({ commit }, exchange) => {
+export const getStockList = ({
+    commit
+}, exchange) => {
     for (let i = 0; i < data.length; i++) {
-        let e = data[i], symbol = `${e.exchange}${e.code}`;
+        let e = data[i],
+            symbol = `${e.exchange}${e.code}`;
         if (symbol.match(/^sh6/ig)) {
             e.code = symbol;
             e.exchange = '上海主板'
@@ -61,11 +69,13 @@ export const getStockList = ({ commit }, exchange) => {
         }
     }
     let stockList = data.filter(entity => entity.exchange === exchange);
+    // stockList.length = 11
+    console.log(stockList);
     commit('GET_STOCK_LIST', stockList)
 }
 
 function parseSinaFuturesData(data) {
-    return (data||[]).map(i => {
+    return (data || []).map(i => {
         let e = {};
         //日期、开盘、最高、最低、收盘、成交量
         e[constant.BASE_ATTR_DATE] = i[0];
@@ -77,6 +87,7 @@ function parseSinaFuturesData(data) {
         return e;
     })
 }
+ */
 
 /**
  * 初始化数据，设置指标

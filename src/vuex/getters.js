@@ -1,10 +1,7 @@
-//test
-export const getCount = state => {
-    return state.count
+export const stockData = state => {
+    return state.stockData
 }
 
-//test
-// export const getStock = state => {
-//     return state.count
-// }
-
+export const stockList = state => {
+    return state.stockList
+}
