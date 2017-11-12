@@ -7,7 +7,7 @@ import macd from '@/components/js/index/macd'
 
 import {
     stockList,
-    getLocalFutrues
+    stockData
 } from '@/common/service'
 
 import sz from '@/assets/data/sz-stock.json'
@@ -21,6 +21,23 @@ export const getStockList = ({
         board: board
     }).then(function (result) {
         commit('GET_STOCK_LIST', result.data);
+    });
+}
+
+export const getStockData = ({
+    commit
+}, symbol) => {
+    return stockData({
+        symbol: symbol
+    }).then(function (result) {
+        let data = result.data
+        //设置pre、next
+        for (let i = 0; i < data.length; i++) {
+            let e = data[i];
+            e.pre = data[i - 1] || {};
+            e.pre.next = e;
+        }
+        commit('GET_STOCK_DATA', data);
     });
 }
 /**

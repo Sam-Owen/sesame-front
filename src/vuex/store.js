@@ -7,7 +7,8 @@ Vue.use(Vuex)
 
 // 应用初始状态
 const state = {
-    stockList: []
+    stockList: [],
+    stockData: []
 }
 
 // 定义所需的 mutations

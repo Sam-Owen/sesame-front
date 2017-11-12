@@ -8,8 +8,8 @@ export const stockList = params => {
     });
 }
 
-export const getLocalFutrues = params => {
-    return axios.get(`${base}/getLocalFuturesData`, {
+export const stockData = params => {
+    return axios.get(`${base}/stockData`, {
         params: params
     });
 }

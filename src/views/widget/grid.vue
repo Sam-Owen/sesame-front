@@ -5,20 +5,20 @@
         <el-table-column type="index" width="100">
         </el-table-column>
 
-        <el-table-column prop="code" label="编码" >
+        <el-table-column prop="symbol" label="编码" >
             <template scope="scope">
-                <router-link :to="`/views/widget/kLine?code=${scope.row.code}`">{{ scope.row.code }}</router-link>
+                <router-link :to="`/views/widget/kLine?symbol=${scope.row.symbol}`">{{ scope.row.symbol }}</router-link>
             </template>
         </el-table-column>
         <el-table-column prop="name" label="名称">
             <template scope="scope">
-                <router-link :to="`/views/widget/analysisList?symbol=${scope.row.code}`">{{ scope.row.name }}</router-link>
+                <router-link :to="`/views/widget/analysisList?symbol=${scope.row.symbol}`">{{ scope.row.name }}</router-link>
             </template>
         </el-table-column>
 
         <el-table-column prop="name" label="详情">
             <template scope="scope">
-                <router-link :to="`/views/widget/replayList?symbol=${scope.row.code}`">Clik me</router-link>
+                <router-link :to="`/views/widget/replayList?symbol=${scope.row.symbol}`">Clik me</router-link>
             </template>
         </el-table-column>
 
